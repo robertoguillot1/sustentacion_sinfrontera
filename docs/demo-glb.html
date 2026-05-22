@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visor 3D - Cabeza de Vaca (Lengua Dinámica)</title>
+    <!-- Importamos la fuente moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #09130e;
+            --panel-bg: rgba(21, 51, 36, 0.65);
+            --border-color: rgba(74, 222, 128, 0.3);
+            --cyan: #38bdf8;
+            --pink: #ff8b9e;
+            --brown: #8B4513;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-dark);
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Contenedor del Visor 3D */
+        #canvas-container {
+            flex: 1;
+            width: 100%;
+            position: relative;
+            background: radial-gradient(circle at center, #1a2a20 0%, #09130e 100%);
+        }
+
+        /* UI Panel inferior */
+        .controls-panel {
+            background: var(--panel-bg);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border-color);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+
+        h2 {
+            margin: 0;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #e2e8f0;
+        }
+
+        .buttons-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 999px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(0,0,0,0.4);
+            color: #fff;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        button.btn-normal {
+            border-color: var(--pink);
+            color: var(--pink);
+        }
+        button.btn-normal:hover, button.btn-normal.active {
+            background: var(--pink);
+            color: #000;
+        }
+
+        button.btn-blue {
+            border-color: var(--cyan);
+            color: var(--cyan);
+        }
+        button.btn-blue:hover, button.btn-blue.active {
+            background: var(--cyan);
+            color: #000;
+        }
+
+        button.btn-brown {
+            border-color: var(--brown);
+            color: var(--brown);
+        }
+        button.btn-brown:hover, button.btn-brown.active {
+            background: var(--brown);
+            color: #fff;
+        }
+
+        .loading-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--cyan);
+            transition: opacity 0.5s;
+        }
+    </style>
+
+    <!-- Import Map para Three.js -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <div id="loading" class="loading-overlay">Cargando modelo 3D...</div>
+
+    <div id="canvas-container"></div>
+
+    <div class="controls-panel">
+        <h2>Control de Síntomas: Lengua</h2>
+        <div class="buttons-row">
+            <button class="btn-normal active" id="btn-normal">👅 Lengua Normal</button>
+            <button class="btn-blue" id="btn-blue">🦠 Lengua Azul (Cianosis)</button>
+            <button class="btn-brown" id="btn-brown">🪵 Lengua Marrón (Actinobacilosis)</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+        // ==========================================
+        // INSTRUCCIONES PARA EL ARCHIVO 3D
+        // ==========================================
+        // 1. Nombra tu archivo descargado de la IA como "cabeza_vaca.glb" 
+        //    y colócalo en la misma carpeta que este archivo (o cambia la ruta abajo).
+        // 2. Abre el modelo en Blender o un visor 3D para confirmar el nombre del MATERIAL de la lengua.
+        // 3. Cambia el valor de "MATERIAL_LENGUA_NOMBRE" por el nombre exacto de tu material.
+        
+        const RUTA_MODELO = './cabeza_vaca.glb'; 
+        const MATERIAL_LENGUA_NOMBRE = 'Material_Lengua'; // <-- CAMBIA ESTO SEGÚN TU ARCHIVO .GLB
+
+        // Colores Hexadecimales
+        const COLOR_NORMAL = 0xff8b9e; // Rosa saludable
+        const COLOR_AZUL = 0x00e5ff;   // Cianosis / Lengua azul
+        const COLOR_MARRON = 0x5c3a21; // Marrón oscuro / Madera
+
+        let tongueMaterial = null;
+
+        // Configuración básica de Three.js
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(0, 0, 3);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.0;
+        container.appendChild(renderer.domElement);
+
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+
+        // Iluminación Profesional
+        const ambientLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.8);
+        scene.add(ambientLight);
+
+        const dirLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        dirLight.position.set(5, 5, 5);
+        scene.add(dirLight);
+
+        // Cargar el modelo .glb
+        const loader = new GLTFLoader();
+        loader.load(
+            RUTA_MODELO,
+            (gltf) => {
+                const model = gltf.scene;
+                
+                // Centrar y escalar modelo (Ajusta la escala si es muy grande/pequeño)
+                const box = new THREE.Box3().setFromObject(model);
+                const center = box.getCenter(new THREE.Vector3());
+                model.position.sub(center); // Centrar en origen
+                
+                scene.add(model);
+
+                // Buscar el material de la lengua iterando por todos los meshes
+                model.traverse((child) => {
+                    if (child.isMesh && child.material) {
+                        // Verificamos si el nombre del material coincide
+                        // Usamos toLowerCase() para evitar errores de mayúsculas
+                        if (child.material.name.toLowerCase().includes('lengua') || 
+                            child.material.name === MATERIAL_LENGUA_NOMBRE) {
+                            
+                            // Clonamos el material por si se comparte con otras partes
+                            child.material = child.material.clone();
+                            tongueMaterial = child.material;
+                            
+                            // Color inicial
+                            tongueMaterial.color.setHex(COLOR_NORMAL);
+                        }
+                    }
+                });
+
+                document.getElementById('loading').style.opacity = '0';
+                setTimeout(() => document.getElementById('loading').style.display = 'none', 500);
+            },
+            (xhr) => {
+                console.log((xhr.loaded / xhr.total * 100) + '% cargado');
+            },
+            (error) => {
+                console.error('Error cargando el modelo GLB. Asegúrate de tener el archivo cabeza_vaca.glb en la misma ruta.', error);
+                document.getElementById('loading').innerHTML = "⚠️ Error: No se encontró el archivo 'cabeza_vaca.glb'";
+            }
+        );
+
+        // Lógica de Botones (UI)
+        const btnNormal = document.getElementById('btn-normal');
+        const btnBlue = document.getElementById('btn-blue');
+        const btnBrown = document.getElementById('btn-brown');
+        const buttons = [btnNormal, btnBlue, btnBrown];
+
+        function setActive(btn) {
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        btnNormal.addEventListener('click', () => {
+            setActive(btnNormal);
+            if (tongueMaterial) {
+                // Animamos o seteamos directo
+                tongueMaterial.color.setHex(COLOR_NORMAL);
+            }
+        });
+
+        btnBlue.addEventListener('click', () => {
+            setActive(btnBlue);
+            if (tongueMaterial) {
+                tongueMaterial.color.setHex(COLOR_AZUL);
+            }
+        });
+
+        btnBrown.addEventListener('click', () => {
+            setActive(btnBrown);
+            if (tongueMaterial) {
+                tongueMaterial.color.setHex(COLOR_MARRON);
+            }
+        });
+
+        // Resize responsive
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Loop de animación
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+</body>
+</html>
