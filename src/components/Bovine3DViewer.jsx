@@ -72,7 +72,7 @@ export default function Bovine3DViewer({ diseaseState = 'normal', activePart = '
       0.1,
       100
     );
-    camera.position.set(0, 0.2, 4.3);
+    camera.position.set(0, 0.2, 5.2);
 
     // 3. Renderer setup with high-end physical configuration
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });

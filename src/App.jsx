@@ -14,12 +14,7 @@ import Leaderboard from './components/Leaderboard';
 
 export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [players, setPlayers] = useState([
-    // Prefill some test players so the board looks full and alive immediately
-    { name: "Juan (Clase)", score: 250 },
-    { name: "María (Clase)", score: 180 },
-    { name: "Carlos (Clase)", score: 90 }
-  ]);
+  const [players, setPlayers] = useState([]);
 
   const totalSlides = 11;
 
