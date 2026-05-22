@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Shield, Sparkles, Bug, User, Heart, RotateCcw, AlertTriangle } from 'lucide-react';
+import potreroBg from '../assets/potrero_topdown.png';
 
 export default function VectorGame({ onGameComplete, onRegisterPlayer }) {
   const [playerName, setPlayerName] = useState('');
@@ -273,39 +274,49 @@ export default function VectorGame({ onGameComplete, onRegisterPlayer }) {
   };
 
   return (
-    <div className="glass" style={{ width: '100%', maxWidth: '42rem', margin: '0 auto', padding: '1.5rem', boxSizing: 'border-box', userSelect: 'none', fontFamily: '"Outfit", sans-serif' }}>
+    <div className="glass" style={{ width: '100%', maxWidth: '52rem', margin: '0 auto', padding: '2.5rem', boxSizing: 'border-box', userSelect: 'none', fontFamily: '"Outfit", sans-serif', borderColor: 'rgba(161, 123, 88, 0.45)' }}>
       
       {/* Game Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #1e293b', paddingBottom: '1rem', marginBottom: '1rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid rgba(161, 123, 88, 0.25)', paddingBottom: '1.25rem', marginBottom: '1.5rem' }}>
         <div>
-          <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold', color: 'white', display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0 }}>
-            <Shield style={{ color: '#fb7185' }} />
+          <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'white', display: 'flex', alignItems: 'center', gap: '0.75rem', margin: 0 }}>
+            <Shield style={{ color: '#fbbf24' }} size={28} />
             <span>Minijuego 2: Defensa contra el Culicoides</span>
           </h2>
-          <p style={{ fontSize: '0.75rem', color: '#94a3b8', margin: '0.25rem 0 0 0' }}>Protege a tu bovino de las picaduras transmisoras</p>
+          <p style={{ fontSize: '1.1rem', color: '#cbd5e1', margin: '0.35rem 0 0 0' }}>Protege a tu bovino de las picaduras transmisoras</p>
         </div>
         <div style={{ textAlign: 'right' }}>
-          <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Puntaje</span>
-          <div className="glow-purple" style={{ fontSize: '1.5rem', fontWeight: 900, color: '#fb7185' }}>{score} pts</div>
+          <span style={{ fontSize: '1rem', color: '#cbd5e1', fontWeight: 700 }}>Puntaje</span>
+          <div style={{ fontSize: '2.25rem', fontWeight: 900, color: '#fbbf24' }}>{score} pts</div>
         </div>
       </div>
 
       {/* Screen 1: Registration */}
       {!gameStarted && (
-        <form onSubmit={handleStartGame} className="animate-in" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: '1.5rem 0', textAlign: 'center' }}>
-          <div style={{ maxWidth: '28rem', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%' }}>
-            <h3 style={{ fontSize: '1.125rem', fontWeight: 600, color: '#cbd5e1', margin: 0 }}>¡Registra un participante para la defensa!</h3>
-            <p style={{ fontSize: '0.75rem', color: '#94a3b8', margin: 0 }}>El mosquito Culicoides atacará al bovino en el centro. ¡Usa repelentes, vacunas y manotazos para protegerlo!</p>
+        <form onSubmit={handleStartGame} className="animate-in" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: '1rem 0', textAlign: 'center' }}>
+          <div style={{ maxWidth: '32rem', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%' }}>
+            <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#fff', margin: 0 }}>¡Registra un participante para la defensa!</h3>
+            <p style={{ fontSize: '1.15rem', color: '#cbd5e1', margin: 0, lineHeight: '1.5' }}>El mosquito Culicoides atacará al bovino en el centro. ¡Usa repelentes, vacunas y manotazos para protegerlo!</p>
             
             <div style={{ position: 'relative' }}>
-              <User style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: '#64748b' }} size={18} />
+              <User style={{ position: 'absolute', left: '1.25rem', top: '50%', transform: 'translateY(-50%)', color: '#fbbf24' }} size={24} />
               <input 
                 type="text" 
                 placeholder="Nombre del compañero..." 
                 value={playerName}
                 onChange={(e) => setPlayerName(e.target.value)}
                 className="game-input"
-                style={{ width: '100%', padding: '0.75rem 1rem 0.75rem 2.75rem', boxSizing: 'border-box' }}
+                style={{
+                  fontSize: '1.25rem',
+                  padding: '1.1rem 1rem 1.1rem 3.5rem',
+                  borderRadius: '14px',
+                  background: 'rgba(9, 19, 14, 0.85)',
+                  border: '2px solid rgba(161, 123, 88, 0.45)',
+                  color: '#fff',
+                  width: '100%',
+                  outline: 'none',
+                  boxSizing: 'border-box'
+                }}
                 required
               />
             </div>
@@ -313,7 +324,7 @@ export default function VectorGame({ onGameComplete, onRegisterPlayer }) {
             <button 
               type="submit"
               className="btn-primary"
-              style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '0.875rem', fontSize: '0.875rem', fontWeight: 'bold' }}
+              style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '1.2rem', fontSize: '1.2rem', fontWeight: 800 }}
             >
               Iniciar Defensa de Campo
             </button>
@@ -323,29 +334,29 @@ export default function VectorGame({ onGameComplete, onRegisterPlayer }) {
 
       {/* Screen 2: Gameplay */}
       {gameStarted && !gameOver && (
-        <div className="animate-in" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <div className="animate-in" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           
           {/* Status Row */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.75rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
-              <span style={{ color: '#94a3b8', fontWeight: 600 }}>Jugador:</span>
-              <span style={{ color: 'white', fontWeight: 'bold' }}>{playerName}</span>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '1.1rem', fontWeight: 700 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ color: '#cbd5e1' }}>Jugador:</span>
+              <span style={{ color: '#fbbf24' }}>{playerName}</span>
             </div>
             
             {/* Timer */}
-            <div style={{ backgroundColor: '#020617', border: '1px solid #1e293b', padding: '0.25rem 0.75rem', borderRadius: '9999px', fontFamily: 'monospace', fontSize: '0.875rem', color: '#00e5ff', fontWeight: 'bold' }}>
+            <div style={{ backgroundColor: 'rgba(9, 19, 14, 0.85)', border: '2px solid rgba(161, 123, 88, 0.45)', padding: '0.4rem 1.25rem', borderRadius: '9999px', fontFamily: 'monospace', fontSize: '1.25rem', color: '#4ade80', fontWeight: 'bold' }}>
               ⏱️ {timeLeft}s
             </div>
 
             {/* Health (Hearts) */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
               {Array.from({ length: 3 }).map((_, idx) => (
                 <Heart 
                   key={idx} 
-                  size={16} 
+                  size={24} 
                   style={{
-                    color: idx < health ? '#f43f5e' : '#334155',
-                    fill: idx < health ? '#f43f5e' : 'none'
+                    color: idx < health ? '#ef4444' : '#334155',
+                    fill: idx < health ? '#ef4444' : 'none'
                   }}
                 />
               ))}
@@ -353,19 +364,19 @@ export default function VectorGame({ onGameComplete, onRegisterPlayer }) {
           </div>
 
           {/* Active Shields Banner */}
-          <div style={{ height: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ height: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             {activeDefense === 'vaccine' && (
-              <span style={{ fontSize: '0.75rem', backgroundColor: 'rgba(8, 51, 68, 0.8)', border: '1px solid rgba(0, 229, 255, 0.5)', padding: '0.125rem 0.75rem', borderRadius: '9999px', color: '#00e5ff', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+              <span style={{ fontSize: '1.1rem', backgroundColor: 'rgba(21, 51, 36, 0.85)', border: '2px solid #4ade80', padding: '0.35rem 1rem', borderRadius: '9999px', color: '#4ade80', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.5rem', boxShadow: '0 4px 15px rgba(74,222,128,0.2)' }}>
                 🛡️ Vacuna Activa (Inmunidad Temporal)
               </span>
             )}
             {activeDefense === 'stall' && (
-              <span style={{ fontSize: '0.75rem', backgroundColor: 'rgba(49, 46, 129, 0.8)', border: '1px solid rgba(99, 102, 241, 0.5)', padding: '0.125rem 0.75rem', borderRadius: '9999px', color: '#a5b4fc', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+              <span style={{ fontSize: '1.1rem', backgroundColor: 'rgba(15, 36, 26, 0.85)', border: '2px solid #fbbf24', padding: '0.35rem 1rem', borderRadius: '9999px', color: '#fbbf24', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.5rem', boxShadow: '0 4px 15px rgba(251,191,36,0.2)' }}>
                 🏠 Estabulado (Vaca en Corral Protegida)
               </span>
             )}
             {activeDefense === 'drain' && (
-              <span style={{ fontSize: '0.75rem', backgroundColor: 'rgba(2, 44, 34, 0.8)', border: '1px solid rgba(16, 185, 129, 0.5)', padding: '0.125rem 0.75rem', borderRadius: '9999px', color: '#34d399', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+              <span style={{ fontSize: '1.1rem', backgroundColor: 'rgba(9, 19, 14, 0.85)', border: '2px solid rgba(161, 123, 88, 0.45)', padding: '0.35rem 1rem', borderRadius: '9999px', color: '#cbd5e1', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 🚜 Drenaje de Charcos (Pocos Mosquitos)
               </span>
             )}
@@ -375,7 +386,7 @@ export default function VectorGame({ onGameComplete, onRegisterPlayer }) {
           <div 
             ref={gameAreaRef} 
             className="game-screen"
-            style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', height: '300px', width: '100%', backgroundColor: '#020617', border: '1px solid #1e293b', borderRadius: '0.5rem', boxSizing: 'border-box' }}
+            style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', height: '320px', width: '100%', backgroundImage: `url(${potreroBg})`, backgroundSize: 'cover', backgroundPosition: 'center', border: '2px solid rgba(161, 123, 88, 0.35)', borderRadius: '1rem', boxSizing: 'border-box', boxShadow: 'inset 0 0 40px rgba(0,0,0,0.4)' }}
           >
             {/* Cow Graphic at center */}
             <div 
@@ -385,35 +396,35 @@ export default function VectorGame({ onGameComplete, onRegisterPlayer }) {
                 justifyContent: 'center',
                 alignItems: 'center',
                 borderRadius: '9999px',
-                padding: '0.5rem',
-                borderWidth: '1px',
+                padding: '1rem',
+                borderWidth: '2px',
                 borderStyle: 'solid',
                 transition: 'all 0.3s',
                 ...(activeDefense === 'vaccine' 
-                  ? { borderColor: '#22d3ee', backgroundColor: 'rgba(8, 51, 68, 0.4)', boxShadow: '0 0 20px rgba(0,229,255,0.4)' }
+                  ? { borderColor: '#4ade80', backgroundColor: 'rgba(21, 51, 36, 0.6)', boxShadow: '0 0 25px rgba(74,222,128,0.5)' }
                   : activeDefense === 'stall'
-                  ? { borderColor: '#818cf8', backgroundColor: 'rgba(49, 46, 129, 0.4)', boxShadow: '0 0 20px rgba(99,102,241,0.4)' }
-                  : { borderColor: '#1e293b', backgroundColor: 'rgba(15, 23, 42, 0.6)' })
+                  ? { borderColor: '#fbbf24', backgroundColor: 'rgba(15, 36, 26, 0.6)', boxShadow: '0 0 25px rgba(251,191,36,0.5)' }
+                  : { borderColor: 'rgba(161, 123, 88, 0.35)', backgroundColor: 'rgba(9, 19, 14, 0.65)' })
               }}
             >
-              <span style={{ fontSize: '3rem', userSelect: 'none', lineHeight: 1 }}>🐄</span>
+              <span style={{ fontSize: '3.5rem', userSelect: 'none', lineHeight: 1 }}>🐄</span>
               <span style={{
-                fontSize: '0.625rem',
+                fontSize: '0.85rem',
                 fontWeight: 'bold',
-                marginTop: '0.25rem',
-                padding: '0.125rem 0.5rem',
+                marginTop: '0.35rem',
+                padding: '0.25rem 0.75rem',
                 borderRadius: '9999px',
                 ...(activeDefense === 'stall' 
-                  ? { backgroundColor: '#6366f1', color: 'white' }
+                  ? { backgroundColor: '#fbbf24', color: '#09130e' }
                   : activeDefense === 'vaccine'
-                  ? { backgroundColor: '#00e5ff', color: '#020617' }
-                  : { backgroundColor: '#1e293b', color: '#94a3b8' })
+                  ? { backgroundColor: '#4ade80', color: '#09130e' }
+                  : { backgroundColor: 'rgba(161, 123, 88, 0.35)', color: '#cbd5e1' })
               }}>
                 {activeDefense === 'stall' ? 'ESTABULADA' : activeDefense === 'vaccine' ? 'VACUNADA' : 'VACA'}
               </span>
             </div>
 
-            {/* Rendering mosquitoes */}
+            {/* Rendering mosquitoes (ENLARGED to 2.25rem for high projection visibility) */}
             {mosquitos.map(m => (
               <div
                 key={m.id}
@@ -422,14 +433,15 @@ export default function VectorGame({ onGameComplete, onRegisterPlayer }) {
                 style={{
                   position: 'absolute',
                   cursor: 'crosshair',
-                  fontSize: '1.5rem',
+                  fontSize: '2.25rem',
                   left: `${m.x}%`,
                   top: `${m.y}%`,
                   transform: 'translate(-50%, -50%)',
                   userSelect: 'none',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  padding: '0.5rem'
                 }}
               >
                 🦟
@@ -438,7 +450,7 @@ export default function VectorGame({ onGameComplete, onRegisterPlayer }) {
           </div>
 
           {/* Active Defense Dashboard */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: '0.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: '0.75rem' }}>
             
             <button
               onClick={() => triggerDefense('vaccine')}
@@ -447,21 +459,22 @@ export default function VectorGame({ onGameComplete, onRegisterPlayer }) {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: '0.25rem',
-                padding: '0.5rem',
-                borderRadius: '0.75rem',
-                borderWidth: '1px',
+                gap: '0.35rem',
+                padding: '0.75rem 0.5rem',
+                borderRadius: '1rem',
+                borderWidth: '2px',
                 borderStyle: 'solid',
                 textAlign: 'center',
+                fontFamily: 'var(--font-primary)',
                 cursor: defenseCooldowns.vaccine > 0 ? 'not-allowed' : 'pointer',
                 ...(defenseCooldowns.vaccine > 0
-                  ? { backgroundColor: 'rgba(15, 23, 42, 0.4)', borderColor: '#0f172a', color: '#475569' }
-                  : { backgroundColor: 'rgba(8, 51, 68, 0.2)', borderColor: 'rgba(6, 182, 212, 0.3)', color: '#22d3ee' })
+                  ? { backgroundColor: 'rgba(9, 19, 14, 0.5)', borderColor: 'rgba(161, 123, 88, 0.15)', color: '#475569' }
+                  : { backgroundColor: 'rgba(21, 51, 36, 0.8)', borderColor: 'rgba(161, 123, 88, 0.4)', color: '#4ade80' })
               }}
             >
-              <Shield size={16} />
-              <span style={{ fontSize: '0.625rem', fontWeight: 'bold' }}>1. Vacuna</span>
-              <span style={{ fontSize: '0.5625rem', color: '#64748b' }}>
+              <Shield size={20} />
+              <span style={{ fontSize: '0.95rem', fontWeight: 800 }}>1. Vacuna</span>
+              <span style={{ fontSize: '0.85rem', color: '#cbd5e1', fontWeight: 700 }}>
                 {defenseCooldowns.vaccine > 0 ? `${defenseCooldowns.vaccine}s` : 'Listo'}
               </span>
             </button>
@@ -473,21 +486,22 @@ export default function VectorGame({ onGameComplete, onRegisterPlayer }) {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: '0.25rem',
-                padding: '0.5rem',
-                borderRadius: '0.75rem',
-                borderWidth: '1px',
+                gap: '0.35rem',
+                padding: '0.75rem 0.5rem',
+                borderRadius: '1rem',
+                borderWidth: '2px',
                 borderStyle: 'solid',
                 textAlign: 'center',
+                fontFamily: 'var(--font-primary)',
                 cursor: defenseCooldowns.repellent > 0 ? 'not-allowed' : 'pointer',
                 ...(defenseCooldowns.repellent > 0
-                  ? { backgroundColor: 'rgba(15, 23, 42, 0.4)', borderColor: '#0f172a', color: '#475569' }
-                  : { backgroundColor: 'rgba(59, 7, 100, 0.2)', borderColor: 'rgba(168, 85, 247, 0.3)', color: '#c084fc' })
+                  ? { backgroundColor: 'rgba(9, 19, 14, 0.5)', borderColor: 'rgba(161, 123, 88, 0.15)', color: '#475569' }
+                  : { backgroundColor: 'rgba(21, 51, 36, 0.8)', borderColor: 'rgba(161, 123, 88, 0.4)', color: '#fbbf24' })
               }}
             >
-              <Sparkles size={16} />
-              <span style={{ fontSize: '0.625rem', fontWeight: 'bold' }}>2. Repelente</span>
-              <span style={{ fontSize: '0.5625rem', color: '#64748b' }}>
+              <Sparkles size={20} />
+              <span style={{ fontSize: '0.95rem', fontWeight: 800 }}>2. Repelente</span>
+              <span style={{ fontSize: '0.85rem', color: '#cbd5e1', fontWeight: 700 }}>
                 {defenseCooldowns.repellent > 0 ? `${defenseCooldowns.repellent}s` : 'Listo'}
               </span>
             </button>
@@ -499,21 +513,22 @@ export default function VectorGame({ onGameComplete, onRegisterPlayer }) {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: '0.25rem',
-                padding: '0.5rem',
-                borderRadius: '0.75rem',
-                borderWidth: '1px',
+                gap: '0.35rem',
+                padding: '0.75rem 0.5rem',
+                borderRadius: '1rem',
+                borderWidth: '2px',
                 borderStyle: 'solid',
                 textAlign: 'center',
+                fontFamily: 'var(--font-primary)',
                 cursor: defenseCooldowns.stall > 0 ? 'not-allowed' : 'pointer',
                 ...(defenseCooldowns.stall > 0
-                  ? { backgroundColor: 'rgba(15, 23, 42, 0.4)', borderColor: '#0f172a', color: '#475569' }
-                  : { backgroundColor: 'rgba(49, 46, 129, 0.2)', borderColor: 'rgba(99, 102, 241, 0.3)', color: '#a5b4fc' })
+                  ? { backgroundColor: 'rgba(9, 19, 14, 0.5)', borderColor: 'rgba(161, 123, 88, 0.15)', color: '#475569' }
+                  : { backgroundColor: 'rgba(21, 51, 36, 0.8)', borderColor: 'rgba(161, 123, 88, 0.4)', color: '#fbbf24' })
               }}
             >
-              <Bug size={16} />
-              <span style={{ fontSize: '0.625rem', fontWeight: 'bold' }}>3. Establo</span>
-              <span style={{ fontSize: '0.5625rem', color: '#64748b' }}>
+              <Bug size={20} />
+              <span style={{ fontSize: '0.95rem', fontWeight: 800 }}>3. Establo</span>
+              <span style={{ fontSize: '0.85rem', color: '#cbd5e1', fontWeight: 700 }}>
                 {defenseCooldowns.stall > 0 ? `${defenseCooldowns.stall}s` : 'Listo'}
               </span>
             </button>
@@ -525,28 +540,29 @@ export default function VectorGame({ onGameComplete, onRegisterPlayer }) {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: '0.25rem',
-                padding: '0.5rem',
-                borderRadius: '0.75rem',
-                borderWidth: '1px',
+                gap: '0.35rem',
+                padding: '0.75rem 0.5rem',
+                borderRadius: '1rem',
+                borderWidth: '2px',
                 borderStyle: 'solid',
                 textAlign: 'center',
+                fontFamily: 'var(--font-primary)',
                 cursor: defenseCooldowns.drain > 0 ? 'not-allowed' : 'pointer',
                 ...(defenseCooldowns.drain > 0
-                  ? { backgroundColor: 'rgba(15, 23, 42, 0.4)', borderColor: '#0f172a', color: '#475569' }
-                  : { backgroundColor: 'rgba(2, 44, 34, 0.2)', borderColor: 'rgba(16, 185, 129, 0.3)', color: '#34d399' })
+                  ? { backgroundColor: 'rgba(9, 19, 14, 0.5)', borderColor: 'rgba(161, 123, 88, 0.15)', color: '#475569' }
+                  : { backgroundColor: 'rgba(21, 51, 36, 0.8)', borderColor: 'rgba(161, 123, 88, 0.4)', color: '#4ade80' })
               }}
             >
-              <RotateCcw size={16} />
-              <span style={{ fontSize: '0.625rem', fontWeight: 'bold' }}>4. Drenar</span>
-              <span style={{ fontSize: '0.5625rem', color: '#64748b' }}>
+              <RotateCcw size={20} />
+              <span style={{ fontSize: '0.95rem', fontWeight: 800 }}>4. Drenar</span>
+              <span style={{ fontSize: '0.85rem', color: '#cbd5e1', fontWeight: 700 }}>
                 {defenseCooldowns.drain > 0 ? `${defenseCooldowns.drain}s` : 'Listo'}
               </span>
             </button>
 
           </div>
 
-          <div className="canvas-hint" style={{ textAlign: 'center', fontSize: '0.625rem', color: '#64748b' }}>
+          <div style={{ textAlign: 'center', fontSize: '1rem', color: '#cbd5e1', background: 'rgba(9, 19, 14, 0.65)', padding: '0.75rem', borderRadius: '10px', border: '1px solid rgba(161, 123, 88, 0.2)' }}>
             🖱️ ¡Haz clic rápido en los mosquitos 🦟 para aplastarlos y obtener puntos! Usa tus poderes de defensa en caso de enjambre.
           </div>
 
@@ -555,60 +571,60 @@ export default function VectorGame({ onGameComplete, onRegisterPlayer }) {
 
       {/* Screen 3: Game Over */}
       {gameStarted && gameOver && (
-        <div className="animate-in" style={{ padding: '2rem 0', textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        <div className="animate-in" style={{ padding: '1.5rem 0', textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'center' }}>
           <div style={{
-            width: '5rem', height: '5rem', borderRadius: '9999px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto', borderWidth: '1px', borderStyle: 'solid',
+            width: '6.5rem', height: '6.5rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto', borderWidth: '2px', borderStyle: 'solid',
             ...(health > 0 
-              ? { backgroundColor: 'rgba(2, 44, 34, 0.2)', borderColor: 'rgba(16, 185, 129, 0.3)', color: '#34d399' }
-              : { backgroundColor: 'rgba(76, 5, 25, 0.2)', borderColor: 'rgba(244, 63, 94, 0.3)', color: '#f43f5e' })
+              ? { backgroundColor: 'rgba(74, 222, 128, 0.12)', borderColor: 'rgba(74, 222, 128, 0.4)', color: '#4ade80' }
+              : { backgroundColor: 'rgba(239, 68, 68, 0.12)', borderColor: 'rgba(239, 68, 68, 0.4)', color: '#ef4444' })
           }}>
             {health > 0 ? (
-              <Sparkles size={40} />
+              <Sparkles size={56} />
             ) : (
-              <AlertTriangle size={40} />
+              <AlertTriangle size={56} />
             )}
           </div>
           
           <div>
-            <h3 style={{ fontSize: '1.5rem', fontWeight: 900, color: 'white', margin: 0 }}>
+            <h3 style={{ fontSize: '2rem', fontWeight: 900, color: 'white', margin: 0 }}>
               {health > 0 ? '¡Defensa Excepcional!' : '¡Infección en el Hato!'}
             </h3>
-            <p style={{ fontSize: '0.875rem', color: '#94a3b8', marginTop: '0.25rem', marginBottom: 0 }}>
+            <p style={{ fontSize: '1.25rem', color: '#cbd5e1', marginTop: '0.5rem', marginBottom: 0, lineHeight: '1.5' }}>
               {health > 0 
                 ? 'Protegiste al bovino con éxito. ¡Los Culicoides fueron derrotados!' 
                 : 'Demasiadas picaduras de mosquitos. El toro presenta síntomas de cianosis de Lengua Azul.'}
             </p>
           </div>
 
-          <div style={{ backgroundColor: '#0f172a', maxWidth: '24rem', margin: '0 auto', padding: '1rem', borderRadius: '1rem', border: '1px solid #1e293b', display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', boxSizing: 'border-box' }}>
+          <div style={{ background: 'rgba(9, 19, 14, 0.95)', maxWidth: '28rem', margin: '0 auto', padding: '1.5rem', borderRadius: '18px', border: '2px solid rgba(161, 123, 88, 0.45)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', boxSizing: 'border-box', boxShadow: '0 8px 24px rgba(0,0,0,0.3)' }}>
             <div style={{ textAlign: 'left' }}>
-              <span style={{ fontSize: '0.75rem', color: '#64748b' }}>Defensor</span>
-              <div style={{ fontWeight: 'bold', color: 'white', fontSize: '1rem' }}>{playerName}</div>
+              <span style={{ fontSize: '0.95rem', color: '#cbd5e1', fontWeight: 700 }}>Defensor</span>
+              <div style={{ fontWeight: 800, color: 'white', fontSize: '1.35rem', marginTop: '0.25rem' }}>{playerName}</div>
             </div>
             <div style={{ textAlign: 'right' }}>
-              <span style={{ fontSize: '0.75rem', color: '#64748b' }}>Puntaje Final</span>
-              <div className="glow-purple" style={{ fontWeight: 900, color: '#fb7185', fontSize: '1.25rem' }}>{score} Puntos</div>
+              <span style={{ fontSize: '0.95rem', color: '#cbd5e1', fontWeight: 700 }}>Puntaje Final</span>
+              <div style={{ fontWeight: 900, color: '#fbbf24', fontSize: '1.75rem', marginTop: '0.25rem' }}>{score} Puntos</div>
             </div>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '1.25rem', width: '100%', maxWidth: '28rem' }}>
             <button 
               onClick={() => {
                 setGameStarted(false);
                 setPlayerName('');
               }}
               className="btn-secondary"
-              style={{ fontSize: '0.75rem', fontWeight: 'bold', padding: '0.5rem 1rem' }}
+              style={{ fontSize: '1.1rem', fontWeight: 800, flex: 1, padding: '1rem' }}
             >
-              Registrar Otro Defensor
+              Registrar Otro
             </button>
             
             <button 
               onClick={onGameComplete}
               className="btn-primary"
-              style={{ fontSize: '0.75rem', fontWeight: 'bold', padding: '0.5rem 1rem' }}
+              style={{ fontSize: '1.1rem', fontWeight: 800, flex: 1, padding: '1rem' }}
             >
-              Ver Tabla de Posiciones
+              Tabla de Posiciones
             </button>
           </div>
         </div>

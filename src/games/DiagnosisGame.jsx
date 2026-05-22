@@ -77,38 +77,48 @@ export default function DiagnosisGame({ onGameComplete, onRegisterPlayer }) {
   };
 
   return (
-    <div className="glass" style={{ width: '100%', maxWidth: '42rem', margin: '0 auto', padding: '1.5rem', userSelect: 'none' }}>
+    <div className="glass" style={{ width: '100%', maxWidth: '52rem', margin: '0 auto', padding: '2.5rem', userSelect: 'none', borderColor: 'rgba(161, 123, 88, 0.45)' }}>
       
       {/* Game Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #1e293b', paddingBottom: '1rem', marginBottom: '1.5rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid rgba(161, 123, 88, 0.25)', paddingBottom: '1.25rem', marginBottom: '2rem' }}>
         <div>
-          <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#fff', display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0 }}>
-            <Award style={{ color: '#00e5ff' }} />
+          <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#fff', display: 'flex', alignItems: 'center', gap: '0.75rem', margin: 0 }}>
+            <Award style={{ color: '#fbbf24' }} size={28} />
             <span>Minijuego 1: El Inspector Diagnóstico</span>
           </h2>
-          <p style={{ fontSize: '0.75rem', color: '#94a3b8', margin: '0.25rem 0 0 0' }}>Inspecciona y salva al ganado de la corporación</p>
+          <p style={{ fontSize: '1.1rem', color: '#cbd5e1', margin: '0.35rem 0 0 0' }}>Inspecciona y salva al ganado de la corporación</p>
         </div>
         <div style={{ textAlign: 'right' }}>
-          <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Score</span>
-          <div className="glow-cyan" style={{ fontSize: '1.5rem', fontWeight: 900, color: '#00e5ff' }}>{score} pts</div>
+          <span style={{ fontSize: '1rem', color: '#cbd5e1', fontWeight: 700 }}>Score</span>
+          <div style={{ fontSize: '2.25rem', fontWeight: 900, color: '#fbbf24' }}>{score} pts</div>
         </div>
       </div>
 
       {/* Screen 1: Registration */}
       {!gameStarted && (
-        <form onSubmit={handleStartGame} className="animate-in" style={{ padding: '1.5rem 0', textAlign: 'center' }}>
-          <div style={{ maxWidth: '28rem', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <h3 style={{ fontSize: '1.125rem', fontWeight: 600, color: '#cbd5e1', margin: 0 }}>¡Registra un participante de la clase!</h3>
-            <p style={{ fontSize: '0.75rem', color: '#94a3b8', margin: 0 }}>Registra el nombre de un compañero para competir por el primer puesto en el podio veterinario</p>
+        <form onSubmit={handleStartGame} className="animate-in" style={{ padding: '1rem 0', textAlign: 'center' }}>
+          <div style={{ maxWidth: '32rem', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <h3 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#fff', margin: 0 }}>¡Registra un participante de la clase!</h3>
+            <p style={{ fontSize: '1.35rem', color: '#cbd5e1', margin: 0, lineHeight: '1.5' }}>Registra el nombre de un compañero para competir por el primer puesto en el podio veterinario</p>
             
             <div style={{ position: 'relative' }}>
-              <User style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: '#64748b' }} size={18} />
+              <User style={{ position: 'absolute', left: '1.25rem', top: '50%', transform: 'translateY(-50%)', color: '#fbbf24' }} size={24} />
               <input 
                 type="text" 
                 placeholder="Nombre del compañero..." 
                 value={playerName}
                 onChange={(e) => setPlayerName(e.target.value)}
                 className="game-input"
+                style={{
+                  fontSize: '1.25rem',
+                  padding: '1.1rem 1rem 1.1rem 3.5rem',
+                  borderRadius: '14px',
+                  background: 'rgba(9, 19, 14, 0.85)',
+                  border: '2px solid rgba(161, 123, 88, 0.45)',
+                  color: '#fff',
+                  width: '100%',
+                  outline: 'none'
+                }}
                 required
               />
             </div>
@@ -116,7 +126,7 @@ export default function DiagnosisGame({ onGameComplete, onRegisterPlayer }) {
             <button 
               type="submit"
               className="btn-primary"
-              style={{ width: '100%', justifyContent: 'center' }}
+              style={{ width: '100%', justifyContent: 'center', padding: '1.2rem' }}
             >
               Comenzar Diagnóstico
             </button>
@@ -126,43 +136,43 @@ export default function DiagnosisGame({ onGameComplete, onRegisterPlayer }) {
 
       {/* Screen 2: Scenarios */}
       {gameStarted && !gameOver && (
-        <div className="animate-in" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+        <div className="animate-in" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           {/* Progress bar */}
-          <div className="progress-track">
+          <div className="progress-track" style={{ height: '8px', background: 'rgba(9, 19, 14, 0.8)' }}>
             <div 
               className="progress-fill"
               style={{ width: `${((currentScenario + 1) / scenarios.length) * 100}%` }}
             />
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#94a3b8' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.1rem', color: '#cbd5e1', fontWeight: 700 }}>
             <span>Caso {scenarios[currentScenario].caseNum} de {scenarios.length}</span>
-            <span>Jugador: <strong style={{ color: '#fff' }}>{playerName}</strong></span>
+            <span>Jugador: <strong style={{ color: '#fbbf24' }}>{playerName}</strong></span>
           </div>
 
           {/* Diagnostic scanner animation */}
-          <div style={{ background: 'rgba(2,6,23,0.8)', border: '1px solid rgba(99,102,241,0.1)', padding: '1.25rem', borderRadius: '16px', position: 'relative', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, #00e5ff, transparent, #d946ef)', animation: 'pulseSlow 2.5s ease-in-out infinite' }} />
-            <h4 style={{ fontSize: '1rem', fontWeight: 700, color: '#00e5ff', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
-              <ShieldAlert size={16} />
+          <div style={{ background: 'rgba(9, 19, 14, 0.85)', border: '2px solid rgba(161, 123, 88, 0.35)', padding: '1.75rem', borderRadius: '18px', position: 'relative', overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: 'linear-gradient(90deg, #4ade80, transparent, #fbbf24)', animation: 'pulseSlow 2.5s ease-in-out infinite' }} />
+            <h4 style={{ fontSize: '1.65rem', fontWeight: 800, color: '#fbbf24', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <ShieldAlert size={26} />
               {scenarios[currentScenario].title}
             </h4>
-            <p style={{ color: '#cbd5e1', fontSize: '0.875rem', lineHeight: 1.7, margin: 0 }}>
+            <p style={{ color: '#f1f5f9', fontSize: '1.45rem', lineHeight: 1.7, margin: 0 }}>
               {scenarios[currentScenario].description}
             </p>
           </div>
 
           {/* Diagnosis Choices */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {scenarios[currentScenario].options.map((option, idx) => {
               let btnStyle = {};
               if (feedback) {
                 if (option.correct) {
-                  btnStyle = { borderColor: '#10b981', background: 'rgba(16,185,129,0.1)', color: '#34d399', pointerEvents: 'none' };
+                  btnStyle = { borderColor: '#4ade80', background: 'rgba(74,222,128,0.12)', color: '#4ade80', pointerEvents: 'none' };
                 } else {
-                  btnStyle = { borderColor: '#ef4444', background: 'rgba(239,68,68,0.05)', color: '#fb7185', pointerEvents: 'none', opacity: 0.4 };
+                  btnStyle = { borderColor: '#ef4444', background: 'rgba(239,68,68,0.05)', color: '#fca5a5', pointerEvents: 'none', opacity: 0.4 };
                 }
               } else {
-                btnStyle = { borderColor: '#1e293b', background: 'rgba(15,23,42,0.6)', color: '#cbd5e1', cursor: 'pointer' };
+                btnStyle = { borderColor: 'rgba(161, 123, 88, 0.35)', background: 'rgba(21, 51, 36, 0.45)', color: '#fff', cursor: 'pointer' };
               }
               return (
                 <button
@@ -170,23 +180,24 @@ export default function DiagnosisGame({ onGameComplete, onRegisterPlayer }) {
                   onClick={() => handleSelectOption(option)}
                   style={{
                     width: '100%',
-                    padding: '0.75rem 1rem',
-                    borderRadius: '12px',
-                    border: '1px solid',
+                    padding: '1.1rem 1.5rem',
+                    borderRadius: '14px',
+                    border: '2px solid',
                     textAlign: 'left',
-                    fontWeight: 600,
-                    fontSize: '0.875rem',
-                    transition: 'all 0.2s',
+                    fontWeight: 700,
+                    fontSize: '1.4rem',
+                    transition: 'all 0.25s ease-in-out',
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     fontFamily: 'var(--font-primary)',
+                    boxShadow: !feedback ? '0 4px 10px rgba(0,0,0,0.15)' : 'none',
                     ...btnStyle,
                   }}
                 >
                   <span>{option.label}</span>
-                  {feedback && option.correct && <CheckCircle2 size={16} style={{ color: '#34d399' }} />}
-                  {feedback && !option.correct && <XCircle size={16} style={{ color: '#fb7185' }} />}
+                  {feedback && option.correct && <CheckCircle2 size={22} style={{ color: '#4ade80' }} />}
+                  {feedback && !option.correct && <XCircle size={22} style={{ color: '#ef4444' }} />}
                 </button>
               );
             })}
@@ -197,27 +208,29 @@ export default function DiagnosisGame({ onGameComplete, onRegisterPlayer }) {
             <div
               className="animate-in"
               style={{
-                padding: '1rem',
-                borderRadius: '12px',
-                border: '1px solid',
+                padding: '1.5rem',
+                borderRadius: '16px',
+                border: '2px solid',
                 display: 'flex',
-                alignItems: 'flex-start',
-                gap: '0.75rem',
-                borderColor: feedback.type === 'correct' ? 'rgba(16,185,129,0.3)' : 'rgba(244,63,94,0.3)',
-                background: feedback.type === 'correct' ? 'rgba(6,78,59,0.2)' : 'rgba(76,5,25,0.2)',
-                color: feedback.type === 'correct' ? '#6ee7b7' : '#fda4af',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '1.5rem',
+                borderColor: feedback.type === 'correct' ? 'rgba(74,222,128,0.4)' : 'rgba(239,68,68,0.4)',
+                background: feedback.type === 'correct' ? 'rgba(21,51,36,0.9)' : 'rgba(9,19,14,0.9)',
+                color: feedback.type === 'correct' ? '#bbf7d0' : '#fecaca',
+                boxShadow: '0 8px 30px rgba(0,0,0,0.3)'
               }}
             >
-              <div style={{ fontSize: '0.875rem', flex: 1, lineHeight: 1.7 }}>
+              <div style={{ fontSize: '1.35rem', flex: 1, lineHeight: 1.6, fontWeight: 500 }}>
                 {feedback.text}
               </div>
               <button 
                 onClick={handleNext}
                 className="btn-primary"
-                style={{ padding: '0.5rem 1rem', borderRadius: '8px', fontSize: '0.75rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.25rem' }}
+                style={{ padding: '0.8rem 1.5rem', borderRadius: '10px', fontSize: '1.1rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.5rem', flexShrink: 0 }}
               >
                 <span>{currentScenario === scenarios.length - 1 ? "Terminar" : "Siguiente"}</span>
-                <ArrowRight size={14} />
+                <ArrowRight size={18} />
               </button>
             </div>
           )}
@@ -227,45 +240,45 @@ export default function DiagnosisGame({ onGameComplete, onRegisterPlayer }) {
 
       {/* Screen 3: Game Over */}
       {gameStarted && gameOver && (
-        <div className="animate-in" style={{ padding: '2rem 0', textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'center' }}>
-          <div className="glow-cyan" style={{ width: '5rem', height: '5rem', background: 'rgba(0,229,255,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(0,229,255,0.3)', color: '#00e5ff' }}>
-            <Award size={40} />
+        <div className="animate-in" style={{ padding: '1.5rem 0', textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'center' }}>
+          <div style={{ width: '6.5rem', height: '6.5rem', background: 'rgba(251,191,36,0.12)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid rgba(251,191,36,0.4)', color: '#fbbf24' }}>
+            <Award size={56} />
           </div>
           
           <div>
-            <h3 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#fff', margin: 0 }}>¡Caso Cerrado, Inspector!</h3>
-            <p style={{ fontSize: '0.875rem', color: '#94a3b8', marginTop: '0.25rem' }}>El diagnóstico del paciente veterinario ha finalizado con éxito.</p>
+            <h3 style={{ fontSize: '2rem', fontWeight: 900, color: '#fff', margin: 0 }}>¡Caso Cerrado, Inspector!</h3>
+            <p style={{ fontSize: '1.25rem', color: '#cbd5e1', marginTop: '0.5rem' }}>El diagnóstico del paciente veterinario ha finalizado con éxito.</p>
           </div>
 
-          <div style={{ background: '#0f172a', maxWidth: '24rem', width: '100%', padding: '1rem', borderRadius: '16px', border: '1px solid #1e293b', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ background: 'rgba(9,19,14,0.95)', maxWidth: '28rem', width: '100%', padding: '1.5rem', borderRadius: '18px', border: '2px solid rgba(161, 123, 88, 0.45)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 8px 24px rgba(0,0,0,0.3)' }}>
             <div style={{ textAlign: 'left' }}>
-              <span style={{ fontSize: '0.75rem', color: '#64748b' }}>Participante</span>
-              <div style={{ fontWeight: 700, color: '#fff', fontSize: '1rem' }}>{playerName}</div>
+              <span style={{ fontSize: '0.95rem', color: '#cbd5e1', fontWeight: 700 }}>Participante</span>
+              <div style={{ fontWeight: 800, color: '#fff', fontSize: '1.35rem', marginTop: '0.25rem' }}>{playerName}</div>
             </div>
             <div style={{ textAlign: 'right' }}>
-              <span style={{ fontSize: '0.75rem', color: '#64748b' }}>Puntaje Final</span>
-              <div style={{ fontWeight: 900, color: '#00e5ff', fontSize: '1.25rem' }}>{score} Puntos</div>
+              <span style={{ fontSize: '0.95rem', color: '#cbd5e1', fontWeight: 700 }}>Puntaje Final</span>
+              <div style={{ fontWeight: 900, color: '#fbbf24', fontSize: '1.75rem', marginTop: '0.25rem' }}>{score} Puntos</div>
             </div>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '1.25rem', width: '100%', maxWidth: '28rem' }}>
             <button 
               onClick={() => {
                 setGameStarted(false);
                 setPlayerName('');
               }}
               className="btn-secondary"
-              style={{ fontWeight: 700, fontSize: '0.75rem' }}
+              style={{ fontWeight: 700, fontSize: '1.1rem', flex: 1, padding: '1rem' }}
             >
-              Registrar Otro Jugador
+              Registrar Otro
             </button>
             
             <button 
               onClick={onGameComplete}
               className="btn-primary"
-              style={{ fontWeight: 700, fontSize: '0.75rem' }}
+              style={{ fontWeight: 800, fontSize: '1.1rem', flex: 1, padding: '1rem' }}
             >
-              Ver Tabla de Posiciones
+              Tabla de Posiciones
             </button>
           </div>
         </div>

@@ -79,7 +79,7 @@ export default function Navigation({
         )}
         <div className="nav-badge course">
           <span>Téc. Auxiliar Veterinario</span>
-          <Award size={16} style={{ color: '#d946ef' }} />
+          <Award size={18} style={{ color: 'var(--gold)' }} />
         </div>
       </div>
 

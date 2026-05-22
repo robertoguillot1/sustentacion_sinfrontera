@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SlideTemplate from '../components/SlideTemplate';
+import riohachaImg from '../assets/campo_riohacha_bovinos.png';
 import { MapPin, Stethoscope, ChevronRight, CheckCircle2 } from 'lucide-react';
 
 export default function SlideCaseStudy() {
@@ -32,7 +33,7 @@ export default function SlideCaseStudy() {
     }
   ];
 
-  const iconColors = ['#00e5ff', '#f59e0b', '#c084fc', '#10b981'];
+  const iconColors = ['var(--cyan)', 'var(--gold)', 'var(--purple-bright)', '#4ade80'];
 
   return (
     <SlideTemplate 
@@ -43,97 +44,113 @@ export default function SlideCaseStudy() {
     >
       
       {/* Left Column: Interactive Timeline */}
-      <div style={{ flex: 1, width: '100%', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <p style={{ color: '#cbd5e1', fontSize: '0.75rem', marginBottom: '0.5rem' }}>
+      <div style={{ flex: 1.1, width: '100%', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '1.35rem', marginBottom: '1rem', lineHeight: 1.6 }}>
           Sigue el paso a paso de este caso clínico real en el Caribe colombiano para comprender cómo se aplica el diagnóstico en campo:
         </p>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {steps.map((step, idx) => (
             <button
               key={idx}
               onClick={() => setActiveStep(idx)}
               style={{
-                padding: '0.75rem',
-                borderRadius: '0.75rem',
-                border: '1px solid',
+                padding: '1.15rem 1.5rem',
+                borderRadius: '16px',
+                border: '1.5px solid',
                 textAlign: 'left',
-                transition: 'all 0.2s',
+                transition: 'all 0.25s',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 cursor: 'pointer',
-                fontFamily: "'Outfit', sans-serif",
-                background: activeStep === idx ? 'rgba(30, 27, 75, 0.3)' : 'rgba(15, 23, 42, 0.6)',
-                borderColor: activeStep === idx ? '#00e5ff' : 'rgba(30, 41, 59, 0.8)',
-                color: activeStep === idx ? '#00e5ff' : '#94a3b8',
-                boxShadow: activeStep === idx ? '0 10px 25px rgba(30, 27, 75, 0.2)' : 'none',
-                transform: activeStep === idx ? 'scale(1.01)' : 'scale(1)'
+                fontFamily: "var(--font-primary)",
+                background: activeStep === idx ? 'rgba(140, 98, 57, 0.25)' : 'rgba(9, 19, 14, 0.65)',
+                borderColor: activeStep === idx ? 'var(--gold)' : 'var(--border-subtle)',
+                color: activeStep === idx ? 'var(--gold)' : 'var(--text-secondary)',
+                boxShadow: activeStep === idx ? '0 10px 25px rgba(251, 191, 36, 0.15)' : 'none',
+                transform: activeStep === idx ? 'translateY(-2px)' : 'none'
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <span style={{
-                  width: '1.5rem',
-                  height: '1.5rem',
+                  width: '2rem',
+                  height: '2rem',
                   borderRadius: '50%',
-                  fontSize: '0.75rem',
-                  fontWeight: 700,
+                  fontSize: '1rem',
+                  fontWeight: 800,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  background: activeStep === idx ? '#00e5ff' : 'rgba(30, 41, 59, 1)',
-                  color: activeStep === idx ? '#020617' : '#94a3b8'
+                  background: activeStep === idx ? 'var(--gold)' : 'var(--bg-surface)',
+                  color: activeStep === idx ? 'var(--bg-deep)' : 'var(--text-muted)'
                 }}>
                   {idx + 1}
                 </span>
-                <span style={{ fontWeight: 600, fontSize: '0.75rem', color: '#fff' }}>{step.label}</span>
+                <span style={{ fontWeight: 700, fontSize: '1.3rem', color: '#fff' }}>{step.label}</span>
               </div>
-              <ChevronRight size={14} />
+              <ChevronRight size={18} />
             </button>
           ))}
         </div>
       </div>
 
-      {/* Right Column: Steps Details Display */}
-      <div style={{ flex: 1, width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'stretch' }}>
+      {/* Right Column: Steps Details Display with Realistic Image */}
+      <div style={{ flex: 1, width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'stretch' }}>
         <div className="glass animate-in" style={{
-          padding: '1.5rem',
-          borderColor: 'rgba(99, 102, 241, 0.2)',
+          padding: '2rem',
+          borderColor: 'var(--border-subtle)',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
           height: '100%',
-          gap: '1rem'
+          gap: '1.25rem',
+          background: 'rgba(21, 51, 36, 0.5)'
         }}>
           
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
-              {activeStep === 0 && <MapPin size={20} style={{ color: '#00e5ff' }} />}
-              {activeStep === 1 && <Stethoscope size={20} style={{ color: '#f59e0b' }} />}
-              {activeStep === 2 && <Stethoscope size={20} style={{ color: '#c084fc' }} />}
-              {activeStep === 3 && <CheckCircle2 size={20} style={{ color: '#10b981' }} />}
+            {/* Context Image representing agricultural field of Riohacha */}
+            <img 
+              src={riohachaImg} 
+              alt="Campo y Bovino en Riohacha" 
+              style={{ 
+                width: '100%', 
+                height: '180px', 
+                objectFit: 'cover', 
+                borderRadius: '16px', 
+                border: '1.5px solid var(--border-subtle)', 
+                marginBottom: '1rem',
+                boxShadow: '0 4px 15px rgba(0,0,0,0.3)' 
+              }} 
+            />
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+              {activeStep === 0 && <MapPin size={24} style={{ color: 'var(--cyan)' }} />}
+              {activeStep === 1 && <Stethoscope size={24} style={{ color: 'var(--gold)' }} />}
+              {activeStep === 2 && <Stethoscope size={24} style={{ color: 'var(--purple-bright)' }} />}
+              {activeStep === 3 && <CheckCircle2 size={24} style={{ color: '#4ade80' }} />}
               
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#fff', lineHeight: 1.2, margin: 0 }}>
+              <h3 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#fff', lineHeight: 1.25, margin: 0 }}>
                 {steps[activeStep].title}
               </h3>
             </div>
             
-            <p style={{ color: '#cbd5e1', fontSize: '0.875rem', lineHeight: 1.6, marginBottom: '1rem' }}>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1.3rem', lineHeight: 1.65, marginBottom: '1.25rem' }}>
               {steps[activeStep].desc}
             </p>
           </div>
 
-          <div style={{ padding: '0.75rem', background: 'rgba(2, 6, 23, 0.6)', border: '1px solid rgba(30, 41, 59, 0.8)', borderRadius: '0.75rem' }}>
-            <span style={{ fontSize: '0.5625rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '0.25rem' }}>
+          <div style={{ padding: '1rem 1.25rem', background: 'rgba(9, 19, 14, 0.8)', border: '1.5px solid var(--border-subtle)', borderRadius: '12px' }}>
+            <span style={{ fontSize: '0.8rem', color: 'var(--gold)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '0.4rem' }}>
               {activeStep === 3 ? "🎯 Lección del Auxiliar:" : "📋 Datos de Terreno:"}
             </span>
-            <p style={{ fontSize: '0.75rem', color: '#cbd5e1', margin: 0, fontWeight: 500, fontStyle: 'italic' }}>
+            <p style={{ fontSize: '1rem', color: '#fff', margin: 0, fontWeight: 600, fontStyle: 'italic', lineHeight: 1.5 }}>
               {steps[activeStep].meta}
             </p>
           </div>
 
           {/* Progress Indicator */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.625rem', color: '#64748b', paddingTop: '0.75rem', borderTop: '1px solid rgba(30, 41, 59, 0.8)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.85rem', color: 'var(--text-muted)', paddingTop: '1rem', borderTop: '1px solid rgba(161, 123, 88, 0.2)' }}>
             <span>Ubicación: Riohacha, La Guajira</span>
             <span>Paso {activeStep + 1} de {steps.length}</span>
           </div>

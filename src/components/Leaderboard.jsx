@@ -30,11 +30,11 @@ export default function Leaderboard({ players }) {
     >
       
       <div>
-        <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
-          <Trophy style={{ color: '#fbbf24' }} />
+        <h2 style={{ fontSize: '2rem', fontWeight: 900, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem' }}>
+          <Trophy style={{ color: '#fbbf24' }} size={32} />
           <span>Podio de Honor Auxiliar Veterinario</span>
         </h2>
-        <p style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.25rem' }}>
+        <p style={{ fontSize: '1.25rem', color: '#cbd5e1', marginTop: '0.5rem' }}>
           Escala de posiciones en vivo de la sustentación
         </p>
       </div>
@@ -42,10 +42,10 @@ export default function Leaderboard({ players }) {
       {players.length === 0 ? (
         <div style={{
           padding: '3rem 1rem',
-          border: '1px dashed rgba(30,41,59,0.8)',
+          border: '2px dashed rgba(161, 123, 88, 0.6)',
           borderRadius: '16px',
-          color: '#64748b',
-          fontSize: '0.875rem',
+          color: '#cbd5e1',
+          fontSize: '1.25rem',
           marginTop: '1.5rem',
         }}>
           📭 Ningún compañero se ha registrado aún.<br />
@@ -78,12 +78,12 @@ export default function Leaderboard({ players }) {
                   className={tierClass}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <span style={{ fontFamily: 'monospace', fontSize: '0.75rem', opacity: 0.75 }}>#{rank}</span>
-                    <span style={{ fontWeight: 700, letterSpacing: '0.03em' }}>{player.name}</span>
+                    <span style={{ fontFamily: 'monospace', fontSize: '1.15rem', opacity: 0.85 }}>#{rank}</span>
+                    <span style={{ fontWeight: 700, letterSpacing: '0.03em', fontSize: '1.2rem' }}>{player.name}</span>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <span style={{ fontSize: '0.75rem', opacity: 0.8 }}>{title}</span>
-                    <span style={{ fontWeight: 900, fontFamily: 'monospace' }}>{player.score} pts</span>
+                    <span style={{ fontSize: '1.15rem', opacity: 0.8 }}>{title}</span>
+                    <span style={{ fontWeight: 900, fontFamily: 'monospace', fontSize: '1.25rem' }}>{player.score} pts</span>
                   </div>
                 </div>
               );
@@ -92,8 +92,8 @@ export default function Leaderboard({ players }) {
 
           {/* List of remaining players */}
           {animatedPlayers.length > 3 && (
-            <div style={{ borderTop: '1px solid rgba(30,41,59,0.8)', paddingTop: '1rem' }}>
-              <div style={{ fontSize: '0.625rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', textAlign: 'left', marginBottom: '0.5rem' }}>
+            <div style={{ borderTop: '2px solid rgba(161, 123, 88, 0.4)', paddingTop: '1.25rem' }}>
+              <div style={{ fontSize: '1.15rem', color: '#cbd5e1', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', textAlign: 'left', marginBottom: '0.75rem' }}>
                 Resto de Participantes:
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
@@ -105,10 +105,10 @@ export default function Leaderboard({ players }) {
                       className="pyramid-row pyramid-other"
                     >
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                        <span style={{ fontFamily: 'monospace', color: '#64748b' }}>#{rank}</span>
-                        <span style={{ fontWeight: 700, color: '#e2e8f0' }}>{player.name}</span>
+                        <span style={{ fontFamily: 'monospace', color: '#94a3b8', fontSize: '1.15rem' }}>#{rank}</span>
+                        <span style={{ fontWeight: 700, color: '#e2e8f0', fontSize: '1.25rem' }}>{player.name}</span>
                       </div>
-                      <div style={{ fontWeight: 900, color: '#00e5ff', fontFamily: 'monospace' }}>{player.score} pts</div>
+                      <div style={{ fontWeight: 900, color: '#fbbf24', fontFamily: 'monospace', fontSize: '1.25rem' }}>{player.score} pts</div>
                     </div>
                   );
                 })}
@@ -118,16 +118,16 @@ export default function Leaderboard({ players }) {
 
           {/* Gamified tips */}
           <div style={{
-            fontSize: '0.625rem',
-            color: '#64748b',
-            background: 'rgba(2,6,23,0.8)',
-            padding: '0.75rem',
+            fontSize: '1.1rem',
+            color: '#cbd5e1',
+            background: 'rgba(9, 19, 14, 0.8)',
+            padding: '1rem',
             borderRadius: '12px',
-            border: '1px solid rgba(15,23,42,0.9)',
+            border: '2px solid rgba(161, 123, 88, 0.3)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '0.4rem',
+            gap: '0.5rem',
           }}>
             <Star size={12} style={{ color: '#facc15' }} />
             <span>¿Quién podrá superar al número 1? ¡Jueguen otra ronda para subir de puesto!</span>
