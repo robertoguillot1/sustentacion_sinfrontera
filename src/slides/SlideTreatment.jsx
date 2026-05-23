@@ -106,16 +106,16 @@ export default function SlideTreatment() {
             
             <ul className="vet-list" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <li style={{ fontSize: '1.2rem', lineHeight: '1.6' }}>
-                <strong style={{ color: '#fbbf24' }}>Vacunación Específica:</strong> Herramienta clave. Se deben aplicar **vacunas inactivadas** (100% seguras y sin riesgo de replicación o recombinación viral). Es fundamental que correspondan al serotipo local circulante (ej. serotipos 1, 4 u 8; marcas comerciales de referencia como *Zulvac* o *BTVpur*), administradas antes de la temporada de mosquitos.
+                <strong style={{ color: '#fbbf24' }}>Vacunación Específica:</strong> Uso de vacunas inactivadas seguras (como <span style={{ color: '#4ade80', fontWeight: 600 }}>Zulvac</span> o <span style={{ color: '#4ade80', fontWeight: 600 }}>BTVpur</span>) según el serotipo local (1, 4 u 8) antes de primavera.
               </li>
               <li style={{ fontSize: '1.2rem', lineHeight: '1.6' }}>
-                <strong style={{ color: '#fbbf24' }}>Control de Vector (Mosquito):</strong> Uso de insecticidas tópicos de acción prolongada en los animales (pour-on a base de piretroides).
+                <strong style={{ color: '#fbbf24' }}>Control del Vector:</strong> Aplicación de insecticidas de acción prolongada (<span style={{ color: '#4ade80' }}>pour-on</span> a base de piretroides) en los animales.
               </li>
               <li style={{ fontSize: '1.2rem', lineHeight: '1.6' }}>
-                <strong style={{ color: '#fbbf24' }}>Manejo de Potreros:</strong> Drenar acumulaciones de agua y lodo. Evitar que el ganado paste cerca de arroyos estancados al amanecer/atardecer.
+                <strong style={{ color: '#fbbf24' }}>Manejo de Potreros:</strong> Drenar acumulaciones de agua y evitar pastoreo cerca de arroyos estancados en horas de alta actividad.
               </li>
               <li style={{ fontSize: '1.2rem', lineHeight: '1.6' }}>
-                <strong style={{ color: '#fbbf24' }}>Terapia de Soporte:</strong> Al no haber cura contra el virus, se administran antiinflamatorios no esteroideos (AINEs como Flunixin Meglumine) para bajar la fiebre y aliviar el dolor, facilitando que beba agua.
+                <strong style={{ color: '#fbbf24' }}>Terapia de Soporte:</strong> Administrar AINEs (<span style={{ color: '#4ade80' }}>Flunixin Meglumine</span>) para controlar la fiebre y el dolor, facilitando la ingesta.
               </li>
             </ul>
           </div>
@@ -128,16 +128,16 @@ export default function SlideTreatment() {
 
             <ul className="vet-list purple" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <li style={{ fontSize: '1.2rem', lineHeight: '1.6' }}>
-                <strong style={{ color: '#fbbf24' }}>Tratamiento con Yoduros:</strong> El protocolo clásico y altamente efectivo consiste en inyecciones de <span style={{ fontWeight: 700, color: '#fff' }}>Yoduro de Sodio (10%)</span> vía intravenosa lenta. Repetir a los 7-10 días.
+                <strong style={{ color: '#fbbf24' }}>Yoduro de Sodio (10%):</strong> Tratamiento intravenoso lento de alta eficacia. Repetir dosis a los 7-10 días.
               </li>
               <li style={{ fontSize: '1.2rem', lineHeight: '1.6' }}>
-                <strong style={{ color: '#fbbf24' }}>Terapia Antibiótica:</strong> La bacteria es muy sensible a la estreptomicina, penicilina, y tetraciclinas de larga acción. Se combinan con los yoduros en casos moderados a graves.
+                <strong style={{ color: '#fbbf24' }}>Terapia Antibiótica:</strong> Administración de estreptomicina, penicilina o tetraciclinas de larga acción en casos moderados a graves.
               </li>
               <li style={{ fontSize: '1.2rem', lineHeight: '1.6' }}>
-                <strong style={{ color: '#fbbf24' }}>Antiinflamatorios:</strong> Dexametasona o Meglumine de Flunixin para reducir la hinchazón masiva de la lengua rápidamente y evitar asfixias.
+                <strong style={{ color: '#fbbf24' }}>Antiinflamatorios:</strong> Uso de <span style={{ color: '#fbbf24', fontWeight: 600 }}>Dexametasona</span> o Flunixin para reducir la inflamación lingual y evitar la asfixia.
               </li>
               <li style={{ fontSize: '1.2rem', lineHeight: '1.6' }}>
-                <strong style={{ color: '#fbbf24' }}>Prevención Mecánica:</strong> Cambiar el potrero si hay malezas con espinas. Retirar forrajes duros del comedero.
+                <strong style={{ color: '#fbbf24' }}>Prevención Física:</strong> Retirar del potrero plantas espinosas o forrajes duros que causen lesiones en la boca.
               </li>
             </ul>
           </div>
