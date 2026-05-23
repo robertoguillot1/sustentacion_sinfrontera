@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import SlideTemplate from '../components/SlideTemplate';
-import { Pill, Activity, ShieldCheck, HeartPulse } from 'lucide-react';
+import { Pill, ShieldCheck, HeartPulse } from 'lucide-react';
 
 export default function SlideTreatment() {
   const [activeTab, setActiveTab] = useState('blue');
@@ -106,7 +106,7 @@ export default function SlideTreatment() {
             
             <ul className="vet-list" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <li style={{ fontSize: '1.2rem', lineHeight: '1.6' }}>
-                <strong style={{ color: '#fbbf24' }}>Vacunación:</strong> La herramienta más efectiva. Debe aplicarse antes de la época de lluvias.
+                <strong style={{ color: '#fbbf24' }}>Vacunación Específica:</strong> Herramienta clave. Se deben aplicar **vacunas inactivadas** (100% seguras y sin riesgo de replicación o recombinación viral). Es fundamental que correspondan al serotipo local circulante (ej. serotipos 1, 4 u 8; marcas comerciales de referencia como *Zulvac* o *BTVpur*), administradas antes de la temporada de mosquitos.
               </li>
               <li style={{ fontSize: '1.2rem', lineHeight: '1.6' }}>
                 <strong style={{ color: '#fbbf24' }}>Control de Vector (Mosquito):</strong> Uso de insecticidas tópicos de acción prolongada en los animales (pour-on a base de piretroides).

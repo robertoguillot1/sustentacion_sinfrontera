@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import SlideTemplate from '../components/SlideTemplate';
-import Bovine3DViewer from '../components/Bovine3DViewer';
-import { Stethoscope, CheckCircle, Info } from 'lucide-react';
+import { Stethoscope, CheckCircle } from 'lucide-react';
+import imgSintomaLengua from '../assets/vaca_sintoma_lengua.png';
+import imgSintomaHocico from '../assets/vaca_sintoma_hocico.png';
+import imgSintomaGanglios from '../assets/vaca_sintoma_ganglios.png';
+import imgSintomaFiebre from '../assets/vaca_sintoma_fiebre.png';
 
 export default function SlideSymptoms() {
   const [activePart, setActivePart] = useState('Lengua');
@@ -73,17 +76,68 @@ export default function SlideSymptoms() {
       layout="split"
     >
       
-      {/* Left Column: Interactive 3D Model */}
+      {/* Left Column: Interactive Clinical Photo Viewer */}
       <div style={{ flex: 1, width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-        <div style={{ width: '100%', maxWidth: '32rem' }}>
-          <Bovine3DViewer 
-            diseaseState={activePart === 'Lengua' ? 'blue' : 'purple'} 
-            activePart={activePart}
-            onPartClick={handlePartClick}
+        <div style={{
+          width: '100%',
+          maxWidth: '32rem',
+          aspectRatio: '4/3',
+          position: 'relative',
+          borderRadius: '24px',
+          overflow: 'hidden',
+          border: '2px solid ' + (symptomData.color === 'blue' ? 'rgba(56,189,248,0.35)' : 'rgba(251,191,36,0.35)'),
+          boxShadow: '0 12px 40px rgba(0,0,0,0.55), 0 0 25px ' + (symptomData.color === 'blue' ? 'rgba(56,189,248,0.12)' : 'rgba(251,191,36,0.12)'),
+          background: 'rgba(9,19,14,0.6)',
+          transition: 'all 0.3s ease-in-out'
+        }}>
+          {/* Badge Overlay */}
+          <div style={{
+            position: 'absolute',
+            top: '1.25rem',
+            left: '1.25rem',
+            zIndex: 10,
+            padding: '0.5rem 1rem',
+            fontSize: '0.95rem',
+            fontWeight: 800,
+            borderRadius: '12px',
+            background: 'rgba(9,19,14,0.85)',
+            border: '1px solid ' + (symptomData.color === 'blue' ? 'rgba(56,189,248,0.35)' : 'rgba(251,191,36,0.35)'),
+            color: '#fff',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem'
+          }}>
+            <span style={{
+              width: '8px',
+              height: '8px',
+              borderRadius: '50%',
+              background: symptomData.color === 'blue' ? '#38bdf8' : 'var(--gold)',
+              boxShadow: '0 0 8px ' + (symptomData.color === 'blue' ? '#38bdf8' : 'var(--gold)')
+            }} />
+            Inspección: {activePart}
+          </div>
+
+          {/* Active Image */}
+          <img 
+            src={
+              activePart === 'Lengua' ? imgSintomaLengua :
+              activePart === 'Hocico' ? imgSintomaHocico :
+              activePart === 'Ganglios' ? imgSintomaGanglios :
+              imgSintomaFiebre
+            } 
+            alt={`Síntoma de ${activePart}`}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              transition: 'transform 0.5s ease',
+            }}
+            onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+            onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
           />
         </div>
-        <div style={{ textAlign: 'center', marginTop: '1rem', fontSize: '1rem', color: 'var(--text-muted)', fontStyle: 'italic', fontWeight: 600 }}>
-          👆 Haz clic en los puntos rojos parpadeantes del bovino para inspeccionar los síntomas
+        <div style={{ textAlign: 'center', marginTop: '1.25rem', fontSize: '1.1rem', color: 'var(--text-muted)', fontWeight: 600 }}>
+          📸 Inspección semiológica de {activePart.toLowerCase()}
         </div>
       </div>
 

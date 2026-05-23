@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import SlideTemplate from '../components/SlideTemplate';
-import Bovine3DViewer from '../components/Bovine3DViewer';
 import { ShieldCheck, AlertCircle, Heart } from 'lucide-react';
+import imgSana from '../assets/vaca_lengua_sana.png';
+import imgAzul from '../assets/vaca_lengua_azul.png';
+import imgMadera from '../assets/vaca_lengua_madera.png';
 
 export default function SlideDefinition() {
   const [diseaseState, setDiseaseState] = useState('normal');
@@ -131,13 +133,63 @@ export default function SlideDefinition() {
 
       </div>
 
-      {/* Right Column: 3D Bovine Model */}
+      {/* Right Column: Clinical Photo Viewer */}
       <div className="slide-col" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-        <div style={{ width: '100%', maxWidth: '580px' }}>
-          <Bovine3DViewer diseaseState={diseaseState} />
+        <div style={{
+          width: '100%',
+          maxWidth: '580px',
+          aspectRatio: '4/3',
+          position: 'relative',
+          borderRadius: '24px',
+          overflow: 'hidden',
+          border: '2px solid ' + (diseaseState === 'normal' ? 'rgba(74,222,128,0.3)' : diseaseState === 'blue' ? 'rgba(56,189,248,0.3)' : 'rgba(161,123,88,0.45)'),
+          boxShadow: '0 12px 40px rgba(0,0,0,0.5), 0 0 20px ' + (diseaseState === 'normal' ? 'rgba(74,222,128,0.1)' : diseaseState === 'blue' ? 'rgba(56,189,248,0.1)' : 'rgba(161,123,88,0.1)'),
+          background: 'rgba(9,19,14,0.6)',
+          transition: 'all 0.3s ease-in-out'
+        }}>
+          {/* Badge Overlay */}
+          <div style={{
+            position: 'absolute',
+            top: '1.25rem',
+            left: '1.25rem',
+            zIndex: 10,
+            padding: '0.5rem 1rem',
+            fontSize: '0.95rem',
+            fontWeight: 800,
+            borderRadius: '12px',
+            background: 'rgba(9,19,14,0.85)',
+            border: '1px solid ' + (diseaseState === 'normal' ? 'rgba(74,222,128,0.4)' : diseaseState === 'blue' ? 'rgba(56,189,248,0.4)' : 'rgba(161,123,88,0.4)'),
+            color: '#fff',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem'
+          }}>
+            <span style={{
+              width: '8px',
+              height: '8px',
+              borderRadius: '50%',
+              background: diseaseState === 'normal' ? '#4ade80' : diseaseState === 'blue' ? '#38bdf8' : 'var(--gold)',
+              boxShadow: '0 0 8px ' + (diseaseState === 'normal' ? '#4ade80' : diseaseState === 'blue' ? '#38bdf8' : 'var(--gold)')
+            }} />
+            {diseaseState === 'normal' ? 'Bovino Sano' : diseaseState === 'blue' ? 'Lengua Azul' : 'Lengua de Madera'}
+          </div>
+
+          {/* Active Image */}
+          <img 
+            src={diseaseState === 'normal' ? imgSana : diseaseState === 'blue' ? imgAzul : imgMadera} 
+            alt={diseaseState === 'normal' ? 'Bovino sano' : diseaseState === 'blue' ? 'Lengua azul' : 'Lengua de madera'}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              transition: 'transform 0.5s ease',
+            }}
+            onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+            onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+          />
         </div>
-        <div style={{ textAlign: 'center', marginTop: '1.25rem', fontSize: '1.1rem', color: 'var(--text-muted)', fontStyle: 'italic', fontWeight: 600 }}>
-          👉 Haz clic, arrastra para rotar e interactúa con el modelo 3D
+        <div style={{ textAlign: 'center', marginTop: '1.25rem', fontSize: '1.15rem', color: 'var(--text-muted)', fontWeight: 600 }}>
+          📸 Registro clínico e ilustrativo en alta definición
         </div>
       </div>
 
